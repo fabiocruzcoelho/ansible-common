@@ -1,0 +1,28 @@
+---
+- name: "Desabilitando selinux"
+  selinux:
+    state: disabled
+
+- name: "Desabilitando Serviços Desnecessario"
+  systemd: name={{ item }} state=stopped enabled=no daemon_reload=yes
+  with_items:
+    - postfix
+    - firewalld
+
+- name: "Atualizando Sistema Operacional"
+  yum: 
+    name: '*' 
+    state: latest 
+    update_cache: yes
+
+- name: "Instalando Repositorio epel-release"
+  yum:
+    name: epel-release
+    state: latest
+    update_cache: yes
+
+- name: "Instalando Pacotes Essenciais"
+  yum: name={{ item }} state=latest update_cache=yes
+  with_items: '{{ yum_packages }}'
+    
+
