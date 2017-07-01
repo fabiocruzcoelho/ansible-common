@@ -1,7 +1,0 @@
----
-- hosts: all
-  gather_facts: False
-  remote_user: root
-  roles: 
-     - ansible-common
-   
