@@ -30,8 +30,8 @@ None
 O playbook pega os hosts no arquivo padrão do ansible em /etc/ansible/hosts
 ```yaml
 [CentOS]
-192.168.33.10
-192.168.33.11
+foreman
+nginx
 ```
 ### Playbook: playbook-common.yml
 ```yaml
@@ -44,7 +44,7 @@ O playbook pega os hosts no arquivo padrão do ansible em /etc/ansible/hosts
 ```
 ### Executando playbook
 ```yaml
-sudo ansible-playbook playbook-common.yml -l foreman --tags=reboot --ask-pass
+sudo ansible-playbook playbook-common.yml -l foreman --ask-pass
 ```
 ### Sistema Operacional
 CentOS7
