@@ -26,7 +26,7 @@ Com esta variavel você pode preparar sua máquina para instalar os seguintes pa
 ### Pré requisitos:
 None
 
-### inventário
+### Inventário:
 O playbook pega os hosts no arquivo padrão do ansible em /etc/ansible/hosts
 
 ```bash
@@ -35,7 +35,7 @@ O playbook pega os hosts no arquivo padrão do ansible em /etc/ansible/hosts
 192.168.33.11
 ```
 ### Playbook: playbook-common.yml
-```bash
+```sh
 ---
  - hosts: all
    gather_facts: False
