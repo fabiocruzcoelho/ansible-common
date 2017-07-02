@@ -6,7 +6,7 @@ Este playbook realiza uma configuração inicial para sistemas operacionais Cent
 - e outros
 
 ### Variáveis: vars
-Com esta variavel você pode preparar sua máquina para instalar os seguintes pacotes e entre outros, adionando o nome do pacote como o exemplo abaixo. veja vars/main.yml
+Com esta variavel você pode preparar sua máquina para instalar os seguintes pacotes e entre outros, adionando o nome do pacote como o exemplo abaixo. veja [vars/main.yml](vars/main.yml)
 
     yum_packages:
         - "@Development tools"
@@ -29,13 +29,13 @@ None
 ### Inventário:
 O playbook pega os hosts no arquivo padrão do ansible em /etc/ansible/hosts
 
-```bash
+```yaml
 [CentOS]
 192.168.33.10
 192.168.33.11
 ```
 ### Playbook: playbook-common.yml
-```sh
+```yaml
 ---
  - hosts: all
    gather_facts: False
@@ -44,7 +44,7 @@ O playbook pega os hosts no arquivo padrão do ansible em /etc/ansible/hosts
      - common
 ```
 ### Executando playbook
-```bash
+```yaml
 sudo ansible-playbook playbook-common.yml -l foreman --tags=reboot --ask-pass
 ```
 ### Sistema Operacional
