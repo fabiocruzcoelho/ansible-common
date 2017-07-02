@@ -5,7 +5,7 @@ Este playbook realiza uma configuração inicial para sistemas operacionais Cent
 - vimrc
 - e outros
 
-### Variáveis:
+### Variáveis: vars
 Com esta variavel você pode preparar sua máquina para instalar os seguintes pacotes e entre outros, adionando o nome do pacote como o exemplo abaixo. veja vars/main.yml
 
     yum_packages:
@@ -26,6 +26,27 @@ Com esta variavel você pode preparar sua máquina para instalar os seguintes pa
 ### Pré requisitos:
 None
 
+### inventário
+O playbook pega os hosts no arquivo padrão do ansible em /etc/ansible/hosts
+
+```bash
+[CentOS]
+192.168.33.10
+192.168.33.11
+```
+### Playbook: playbook-common.yml
+```bash
+---
+ - hosts: all
+   gather_facts: False
+   remote_user: root
+   roles: 
+     - common
+```
+### Executando playbook
+```bash
+sudo ansible-playbook playbook-common.yml -l foreman --tags=reboot --ask-pass
+```
 ### Sistema Operacional
 CentOS7
 
