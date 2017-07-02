@@ -28,7 +28,6 @@ None
 
 ### Inventário:
 O playbook pega os hosts no arquivo padrão do ansible em /etc/ansible/hosts
-
 ```yaml
 [CentOS]
 192.168.33.10
