@@ -6,8 +6,8 @@ Este playbook realiza uma configuração inicial para sistemas operacionais Cent
 - e outros
 
 ### Variáveis: vars
-Com esta variavel você pode preparar sua máquina para instalar os seguintes pacotes e entre outros, adionando o nome do pacote como o exemplo abaixo. veja [vars/main.yml](vars/main.yml)
-
+Com esta variavel você pode preparar sua máquina para instalar os seguintes pacotes e entre outros, adionando o nome do pacote como o exemplo abaixo. veja [roles/common/vars/main.yml](roles/common/vars/main.yml)
+```yaml
     yum_packages:
         - "@Development tools"
         - libselinux-python
@@ -22,7 +22,7 @@ Com esta variavel você pode preparar sua máquina para instalar os seguintes pa
         - lynis
         - iotop
         - iftop
-
+```
 ### Pré requisitos:
 None
 
