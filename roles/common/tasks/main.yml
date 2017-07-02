@@ -25,5 +25,4 @@
   yum: name={{ item }} state=latest update_cache=yes
   with_items: '{{ yum_packages }}'
     
-- name: "teste"
   
