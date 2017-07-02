@@ -2,26 +2,55 @@
 - name: "Desabilitando selinux"
   selinux:
     state: disabled
+  tags: config-inicial
 
 - name: "Desabilitando Serviços Desnecessario"
   systemd: name={{ item }} state=stopped enabled=no daemon_reload=yes
   with_items:
     - postfix
     - firewalld
+ tags: config-inicial
 
 - name: "Atualizando Sistema Operacional"
   yum: 
     name: '*' 
     state: latest 
     update_cache: yes
+ tags: config-inicial
 
 - name: "Instalando Repositorio epel-release"
   yum:
     name: epel-release
     state: latest
     update_cache: yes
+ tags: config-inicial
 
 - name: "Instalando Pacotes Essenciais"
   yum: name={{ item }} state=latest update_cache=yes
   with_items: '{{ yum_packages }}'
-  
+ tags: config-inicial  
+
+- name: "Permitindo grupo 'wheel' para NOPASSWD"
+  lineinfile:
+    path: /etc/sudoers
+    state: present
+    regexp: '^%wheel\s'
+    line: '%wheel ALL=(ALL) NOPASSWD: ALL'
+    validate: 'visudo -cf %s'
+ tags: config-inicial
+
+- name: "Alterando SSH PermitRootLogin para 'without-password'"
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^PermitRootLogin"
+    line: "PermitRootLogin without-password"
+    state: present
+ tags: config-inicial
+
+- name: "Copiando arquivos padrão"
+  copy: src={{ item.src }} dest={{ item.dest }} mode=0644 owner={{ item.owner }} group={{ item.group }}
+  with_items:
+    - { src: vimrc, dest: /etc/vimrc, mode: 0644, owner: root, group: root }
+    - { src: bashrc_users, dest: /etc/skel/.bashrc, mode: 0644, owner: root, group: root }
+    - { src: bashrc_root, dest: /root/.bashrc, mode: 0644, owner: root, group: root }
+ tags: config-inicial
