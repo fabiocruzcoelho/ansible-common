@@ -56,9 +56,8 @@
   tags: config-inicial
 
 - name: "Reiniciando Servidor para validar as configurações"
-  command: /sbin/shutdown -r +1
+  command: shutdown -r +1
   async: 0
   poll: 0
   ignore_errors: true
   tags: config-inicial
-  
