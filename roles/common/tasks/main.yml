@@ -9,26 +9,26 @@
   with_items:
     - postfix
     - firewalld
- tags: config-inicial
+  tags: config-inicial
 
 - name: "Atualizando Sistema Operacional"
   yum: 
     name: '*' 
     state: latest 
     update_cache: yes
- tags: config-inicial
+  tags: config-inicial
 
 - name: "Instalando Repositorio epel-release"
   yum:
     name: epel-release
     state: latest
     update_cache: yes
- tags: config-inicial
+  tags: config-inicial
 
 - name: "Instalando Pacotes Essenciais"
   yum: name={{ item }} state=latest update_cache=yes
   with_items: '{{ yum_packages }}'
- tags: config-inicial  
+  tags: config-inicial  
 
 - name: "Permitindo grupo 'wheel' para NOPASSWD"
   lineinfile:
@@ -37,7 +37,7 @@
     regexp: '^%wheel\s'
     line: '%wheel ALL=(ALL) NOPASSWD: ALL'
     validate: 'visudo -cf %s'
- tags: config-inicial
+  tags: config-inicial
 
 - name: "Alterando SSH PermitRootLogin para 'without-password'"
   lineinfile:
@@ -45,7 +45,7 @@
     regexp: "^PermitRootLogin"
     line: "PermitRootLogin without-password"
     state: present
- tags: config-inicial
+  tags: config-inicial
 
 - name: "Copiando arquivos padrão"
   copy: src={{ item.src }} dest={{ item.dest }} mode=0644 owner={{ item.owner }} group={{ item.group }}
@@ -53,4 +53,12 @@
     - { src: vimrc, dest: /etc/vimrc, mode: 0644, owner: root, group: root }
     - { src: bashrc_users, dest: /etc/skel/.bashrc, mode: 0644, owner: root, group: root }
     - { src: bashrc_root, dest: /root/.bashrc, mode: 0644, owner: root, group: root }
- tags: config-inicial
+  tags: config-inicial
+
+- name: "Reiniciando Servidor para validar as configurações"
+  command: /sbin/shutdown -r +1
+  async: 0
+  poll: 0
+  ignore_errors: true
+  tags: config-inicial
+  
